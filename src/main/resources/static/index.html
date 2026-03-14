@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi KTP - Digital</title>
+    <!-- Font Awesome untuk icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <i class="fas fa-id-card"></i>
+            <span>Sistem Informasi KTP</span>
+        </div>
+        <div class="nav-menu">
+            <span class="badge">v1.0.0</span>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Header Section -->
+    <div class="header-section">
+        <h1 class="page-title">
+            <i class="fas fa-address-card"></i>
+            Manajemen Data KTP
+        </h1>
+        <p class="page-subtitle">Kelola data kependudukan dengan mudah dan efisien</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+                <span class="stat-label">Total Data</span>
+                <span class="stat-value" id="totalData">0</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <i class="fas fa-venus-mars"></i>
+            </div>
+            <div class="stat-content">
+                <span class="stat-label">Laki-laki</span>
+                <span class="stat-value" id="totalLaki">0</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <i class="fas fa-venus"></i>
+            </div>
+            <div class="stat-content">
+                <span class="stat-label">Perempuan</span>
+                <span class="stat-value" id="totalPerempuan">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card form-card">
+        <div class="card-header">
+            <div class="header-title">
+                <i class="fas fa-edit"></i>
+                <h2>Form Data KTP</h2>
+            </div>
+            <div class="header-badge" id="formMode">Tambah Data</div>
+        </div>
+        <div class="card-body">
+            <form id="ktpForm">
+                <input type="hidden" id="ktpId">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nomorKtp">
+                            <i class="fas fa-id-card"></i>
+                            Nomor KTP
+                        </label>
+                        <input type="text" id="nomorKtp" name="nomorKtp" maxlength="16"
+                               placeholder="16 digit angka" required>
+                        <small class="error" id="nomorKtpError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="namaLengkap">
+                            <i class="fas fa-user"></i>
+                            Nama Lengkap
+                        </label>
+                        <input type="text" id="namaLengkap" name="namaLengkap"
+                               placeholder="Masukkan nama lengkap" required>
+                        <small class="error" id="namaLengkapError"></small>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="alamat">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Alamat
+                        </label>
+                        <textarea id="alamat" name="alamat" rows="3"
+                                  placeholder="Masukkan alamat lengkap" required></textarea>
+                        <small class="error" id="alamatError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tanggalLahir">
+                            <i class="fas fa-calendar"></i>
+                            Tanggal Lahir
+                        </label>
+                        <input type="date" id="tanggalLahir" name="tanggalLahir" required>
+                        <small class="error" id="tanggalLahirError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jenisKelamin">
+                            <i class="fas fa-venus-mars"></i>
+                            Jenis Kelamin
+                        </label>
+                        <select id="jenisKelamin" name="jenisKelamin" required>
+                            <option value="" disabled selected>Pilih jenis kelamin</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                        <small class="error" id="jenisKelaminError"></small>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="resetBtn">
+                        <i class="fas fa-redo"></i>
+                        Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="fas fa-save"></i>
+                        Simpan Data
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card table-card">
+        <div class="card-header">
+            <div class="header-title">
+                <i class="fas fa-table"></i>
+                <h2>Daftar Data KTP</h2>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Cari data...">
+            </div>
+        </div>
+        <div class="card-body">
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <span>Memuat data...</span>
+            </div>
+            <div id="message" class="message"></div>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nomor KTP</th>
+                        <th>Nama Lengkap</th>
+                        <th>Alamat</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ktpTableBody">
+                    <tr>
+                        <td colspan="7" class="text-center">Tidak ada data</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Hapus -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Konfirmasi Hapus</h3>
+        </div>
+        <div class="modal-body">
+            <p>Apakah Anda yakin ingin menghapus data KTP ini?</p>
+            <p class="warning-text">Tindakan ini tidak dapat dibatalkan!</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="cancelDelete">
+                <i class="fas fa-times"></i>
+                Batal
+            </button>
+            <button class="btn btn-danger" id="confirmDelete">
+                <i class="fas fa-trash"></i>
+                Hapus
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
